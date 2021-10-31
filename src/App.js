@@ -4,8 +4,11 @@ import Quiz from './containers/quiz/Quiz'
 function App() {
   return (
     <div className="App">
-      <Layout>
-        <Quiz></Quiz>
+      <Layout
+      >
+        <Quiz
+        >
+        </Quiz>
       </Layout>
     </div>
   )
