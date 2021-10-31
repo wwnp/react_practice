@@ -10,7 +10,7 @@ const AnswersList = props => {
             key={index} 
             id={index+1}
             answer={answer} 
-            onAnswerClick={props.onAnswerClick}
+            // onAnswerClick={props.onAnswerClick}
           >
           </AnswerItem>
         )

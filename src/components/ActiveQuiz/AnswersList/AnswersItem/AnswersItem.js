@@ -9,6 +9,7 @@ const AnswerItem = props => {
           <li 
             className={classes.AnswerItem}
             onClick={context}
+            // onClick={props.onAnswerClick}
             data-id={props.id}
           >
             {props.answer.text}
@@ -20,24 +21,3 @@ const AnswerItem = props => {
   )
 }
 export default AnswerItem
-
-// eslint-disable-next-line import/no-anonymous-default-export
-// export default props => {
-//   return (
-//     <div>
-//       <h3>Counter 2</h3>
-//       <ClickedContext.Consumer>
-//         {(clicked) => clicked ? <p>Clicked</p>: null}
-//       </ClickedContext.Consumer>
-//     </div>
-//   )
-// }
-//  <ClickedContext.Consumer>
-// <li 
-//   className={classes.AnswerItem}
-//   onClick={props.onAnswerClick}
-//   data-id={props.id}
-// >
-//   {props.answer.text}
-// </li>
-// </ClickedContext.Consumer>
