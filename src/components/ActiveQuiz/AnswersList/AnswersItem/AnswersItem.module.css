@@ -8,5 +8,18 @@
 
 .AnswerItem:hover {
   background: rgba(255, 255, 255, .2);
-  transition: background .3s ease-in-out;
+  transition: background .1s ease-in-out;
+}
+
+.success {
+  background: #15ff00;
+}
+.success:hover {
+  background: #15ff00;
+}
+.fail {
+  background: #ff0000;
+}
+.fail:hover {
+  background: #ff0000;
 }
