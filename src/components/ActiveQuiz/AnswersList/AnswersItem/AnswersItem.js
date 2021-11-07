@@ -1,6 +1,7 @@
 import React from "react";
 import classes from './AnswersItem.module.css'
 import { AnswerClickHandlerContext } from "../../../../containers/quiz/Quiz.js";
+
 const AnswerItem = props => {
   return (
     <AnswerClickHandlerContext.Consumer>
@@ -18,9 +19,7 @@ const AnswerItem = props => {
           </li>
         )
       }}
-
     </AnswerClickHandlerContext.Consumer>
-
   )
 }
 export default AnswerItem

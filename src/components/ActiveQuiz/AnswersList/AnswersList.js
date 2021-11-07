@@ -1,22 +1,28 @@
-import React from 'react'
+import React, { Component } from 'react'
 import AnswerItem from './AnswersItem/AnswersItem'
 import classes from './AnswersList.module.css'
-const AnswersList = props => {
-  return (
-    <ul className={classes.AnswersList}>
-      {props.answers.map((answer, index) => {
-        return (
-          <AnswerItem
-            key={index}
-            id={index + 1}
-            answer={answer}
-            answerState={props.answerState ? props.answerState[answer.id]: null}
-          >
-          </AnswerItem>
-        )
-      })}
-    </ul>
-  )
 
+class AnswersList extends Component {
+  render() {
+    return (
+      <ul className={classes.AnswersList}>
+        {this.props.answers.map((answer, index) => {
+          return (
+            <AnswerItem
+              key={index}
+              id={index + 1}
+              answer={answer}
+              answerState={this.props.answerState ? this.props.answerState[answer.id] : null}
+            >
+            </AnswerItem>
+          )
+        })}
+      </ul>
+    )
+  }
 }
+// const AnswersList = props => {
+
+
+// }
 export default AnswersList
