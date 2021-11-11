@@ -1,24 +1,21 @@
 import React, { Component } from 'react'
 import classes from './Drawer.module.css'
-import Backdrop from '../../../UI/Button/Backdrop/Backdrop'
-
-const links = [1, 2, 3]
+import Backdrop from '../../UI/Button/Backdrop/Backdrop'
+import { NavLink } from "react-router-dom";
+import { routes } from '../../../routes';
+import './Drawer.scss'
 
 class Drawer extends Component {
-  // DrawerHandler(){
-  //   if(this.props.menu === true){
-  //     this.setState({
-  //       menu: false
-  //     })
-  //   }
-  // }
   renderLinks() {
-    return links.map((link, index) => {
+    return Object.entries(routes).map(([title, location], index) => {
       return (
-        <li
-          key={index}
-        >
-          <a href="#">Link: {link}</a>
+        <li key={index}>
+          <NavLink 
+            to={location}
+            onClick={this.props.BackdropHandler}
+          >
+            {title}
+          </NavLink>
         </li>
       )
     })
@@ -50,7 +47,6 @@ class Drawer extends Component {
         }
 
       </React.Fragment>
-
     )
   }
 }

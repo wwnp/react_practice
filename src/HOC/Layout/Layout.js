@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import classes from './Layout.module.css'
 import MenuToggle from '../../components/Navigation/MenuToggle/MenuToggle'
-import Drawer from '../../components/Navigation/MenuToggle/Drawer/Drawer'
+import Drawer from '../../components/Navigation//Drawer/Drawer.js'
+import { Outlet } from "react-router-dom";
+import Footer from '../../components/UI/Footer/Footer';
 
 class Layout extends Component {
   state = {
@@ -19,9 +21,7 @@ class Layout extends Component {
   }
   render() {
     return (
-      <div 
-        className={classes.Layout}
-      >
+      <div className={classes.Layout}>
         <Drawer
           isOpen={this.state.menu}
           BackdropHandler={this.BackdropHandler.bind(this)}
@@ -32,11 +32,8 @@ class Layout extends Component {
           isOpen={this.state.menu}
         >
         </MenuToggle>
-        <main
-          // onClick={this.DrawerHandler.bind(this)}
-        >
-          {this.props.children}
-        </main>
+        <Outlet></Outlet>
+        <Footer></Footer>
       </div>
     )
   }

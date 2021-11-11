@@ -1,6 +1,6 @@
 import React from "react";
 import classes from './AnswersItem.module.css'
-import { AnswerClickHandlerContext } from "../../../../containers/quiz/Quiz.js";
+import { AnswerClickHandlerContext } from "../../../../containers/Quiz/Quiz.js";
 
 const AnswerItem = props => {
   return (

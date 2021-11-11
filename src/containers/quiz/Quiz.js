@@ -3,8 +3,9 @@ import classes from './Quiz.module.css'
 import ActiveQuiz from '../../components/ActiveQuiz/ActiveQuiz'
 import FinishedQuiz from '../../components/FinishedQuiz/FinishedQuiz.js'
 import { handler } from '../../pure/pure'
+import { useParams } from "react-router-dom";
+
 export const AnswerClickHandlerContext = React.createContext(false)
-export const AnswerStateContext = React.createContext(false)
 
 class Quiz extends Component {
   state = {
@@ -32,7 +33,7 @@ class Quiz extends Component {
     rangePercent: 0,
     isFinished: false,
     results: { },
-    timeChange: 1500
+    timeChange: 100
   }
 
   onAnswerClickHandler = (answerId, event) => {
@@ -140,4 +141,10 @@ class Quiz extends Component {
     this.progress = document.getElementById('prog')
   }
 }
-export default Quiz
+
+// eslint-disable-next-line import/no-anonymous-default-export
+export default function (props){
+  const params = useParams();
+  return <Quiz {...props} params={params} />;
+}
+// export default Quiz
