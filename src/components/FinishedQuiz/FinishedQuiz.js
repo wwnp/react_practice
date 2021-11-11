@@ -1,6 +1,7 @@
 import React from 'react'
 import classes from './FinishedQuiz.module.css'
 import { Button } from '../UI/Button/Button'
+import {  useNavigate, Link } from "react-router-dom";
 
 const FinishedQuiz = props => {
   const successCount = Object.keys(props.results).reduce((total, key) => {
@@ -9,6 +10,12 @@ const FinishedQuiz = props => {
     }
     return total
   }, 0)
+
+  const navigate = useNavigate()
+  const toQuizListHandler = (e) => {
+    e.preventDefault()
+    navigate("/")
+  }
   return (
     <div className={classes.FinishedQuiz}>
       <h1>Finished</h1>
@@ -37,12 +44,14 @@ const FinishedQuiz = props => {
         >
           Again?
         </Button>
-        <Button
-          onButtonHandler={()=> console.log('Move to Tests List')}
-          type={'success'}
-        >
-          Tests List
-        </Button>
+        <Link to='/'>
+          <Button
+            // onButtonHandler={toQuizListHandler} or Link
+            type={'success'}
+          >
+            Tests List
+          </Button>
+        </Link>
       </div>
     </div>
   )

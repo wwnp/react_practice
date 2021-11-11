@@ -2,9 +2,8 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: red;
+    background-color: rgb(48, 47, 47);
 }
-
 .Layout main {
     display: flex;
     flex-direction: column;

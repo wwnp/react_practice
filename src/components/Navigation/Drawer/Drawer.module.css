@@ -4,7 +4,7 @@
   top: 0;
   bottom: 0;
   width: 80%;
-  max-width: 300px;
+  max-width: 250px;
   padding: 20px 10px;
   box-sizing: border-box;
   background: #fff;
@@ -36,7 +36,6 @@
   padding: 0 20px 10px 20px;
   transition: opacity .3s;
 }
-
 .Drawer ul li a:hover, .active {
   opacity: .7;
 }
