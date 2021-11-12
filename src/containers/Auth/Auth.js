@@ -66,8 +66,6 @@ export default class Auth extends Component {
     if (validation.minLength) {
       isValid = value.length >= validation.minLength && isValid
     }
-
-
     return isValid
   }
   
@@ -99,26 +97,6 @@ export default class Auth extends Component {
           <h1>Login</h1>
           <form className='AuthForm' onSubmit={this.submitHandler}>
             {this.renderInputs()}
-            {/* <Input
-              type='text'
-              label='Email'
-              onChangeHandler={this.onChangeHandler}
-
-              valid={false}
-              shouldValidate={true}
-              touched={true}
-            >
-            </Input>
-            <Input
-              type='password'
-              label='Password'
-              onChangeHandler={this.onChangeHandler}
-
-              valid={false}
-              shouldValidate={true}
-              touched={true}
-            >
-            </Input> */}
 
             <Button type='success' onButtonHandler={this.loginHandler}>Enter</Button>
             <Button type='primary' onButtonHandler={this.registerHandler}>Register</Button>
