@@ -7,32 +7,30 @@ export default class Auth extends Component {
   state = {
     isFormValid: false,
     controls: {
-      'email': {
-        type: 'email',
+      email: {
         value: '',
-        errorMsg: 'Appropriate email pattern: quiz@mail.com',
+        type: 'email',
         label: 'Email',
+        errorMsg: 'Appropriate email pattern: quiz@mail.com',
         valid: false,
         touched: false,
-        shouldValidate: true,
-        validate: {
+        validation: {
           required: true,
           email: true
         }
       },
-      'password': {
-        type: 'password',
+      password: {
         value: '',
-        errorMsg: `Password has to contain at least 6 symbols`,
+        type: 'password',
         label: 'Password',
+        errorMsg: `Password has to contain at least 6 symbols`,
         valid: false,
         touched: false,
-        shouldValidate: true,
-        validate: {
+        validation: {
           required: true,
           minLength: 6
         }
-      },
+      }
     }
   }
   loginHandler = () => {
@@ -42,62 +40,63 @@ export default class Auth extends Component {
   submitHandler = (e) => {
     e.preventDefault()
   }
-
-  onChangeHandler(e, controlName) {
+  onChangeHandler = (e, controlName) => {
     const controls = { ...this.state.controls }
-    const control = controls[controlName]
+    const control = { ...controls[controlName] }
+    console.log(control)
     control.value = e.target.value
     control.touched = true
-    control.valid = this.validateControl(control.value, control.validate)
+    control.valid = this.validateControl(control.value, control.validation)
     controls[controlName] = control
-
+    
     let isFormValid = true
-    Object.keys(controls).forEach((controlName2)=> {
-      isFormValid = controls[controlName2].valid && isFormValid
+    Object.keys(controls).forEach(cName => {
+      isFormValid = controls[cName].valid && isFormValid
     })
-
-
     this.setState({
-      isFormValid,controls
+      controls,isFormValid
     })
+
   }
-  validateControl(value, validate) {
-    if (!validate) {
+  validateControl(value, validation) {
+    if (!validation) {
       return true
     }
     let isValid = true
-    if (validate.required) {
+    if (validation.required) {
       isValid = value.trim() !== '' && isValid
     }
-    if (validate.email) {
-      isValid = validateEmail(value) && isValid
+    if (validation.email) {
+      isValid = is.email(value) && isValid; // npm i is_js import is from 'is_js'
+      // isValid = validateEmail(value)
     }
-    if (validate.minLength) {
-      isValid = value.length >= validate.minLength && isValid
+    if (validation.minLength) {
+      isValid = value.length >= validation.minLength && isValid
     }
     return isValid
   }
-  renderInputs() {
-    return Object.entries(this.state.controls).map((control, index) => {
-      let controlName = control[0] // email ; password
-      let controlValue = control[1] // {type: 'email', value: '', errMsg: 'Wrong email', label: 'Email', valid: false, …} ; {type: 'password', value: '', errMsg: 'Wrong password', label: 'Password', valid: false, …}
+
+  renderInputs() { // controlName === 'email', 'password'
+    const inputs = Object.keys(this.state.controls).map((controlName, index) => {
+      const controlValue = this.state.controls[controlName] //{ value: '', type: 'email', label: 'Email', errorMsg: 'Incorrect email address ...
       return <Input
         key={index}
+
         value={controlValue.value}
         type={controlValue.type}
-        errorMsg={controlValue.errorMsg}
         label={controlValue.label}
+        errorMsg={controlValue.errorMsg}
 
         valid={controlValue.valid}
+        shouldValidate={true}
         touched={controlValue.touched}
-        shouldValidate={controlValue.shouldValidate}
 
         onChangeHandler={(e) => this.onChangeHandler(e, controlName)}
       >
       </Input>
     })
+    return inputs
   }
-
   render() {
     console.log(this.state.isFormValid)
     return (
@@ -106,15 +105,16 @@ export default class Auth extends Component {
           <h1>Login</h1>
           <form className='AuthForm' onSubmit={this.submitHandler}>
             {this.renderInputs()}
+
             <Button
-              type='success'
+              type='success' 
               onButtonHandler={this.loginHandler}
               disabled={!this.state.isFormValid}
             >
               Enter
             </Button>
-            <Button
-              type='primary'
+            <Button 
+              type='primary' 
               onButtonHandler={this.registerHandler}
               disabled={!this.state.isFormValid}
             >
