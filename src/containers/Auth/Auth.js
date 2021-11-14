@@ -15,7 +15,7 @@ export default class Auth extends Component {
         valid: false,
         touched: false,
         shouldValidate: true,
-        validate: {
+        validation: {
           required: true,
           email: true
         }
@@ -28,7 +28,7 @@ export default class Auth extends Component {
         valid: false,
         touched: false,
         shouldValidate: true,
-        validate: {
+        validation: {
           required: true,
           minLength: 6
         }
@@ -48,7 +48,7 @@ export default class Auth extends Component {
     const control = controls[controlName]
     control.value = e.target.value
     control.touched = true
-    control.valid = this.validateControl(control.value, control.validate)
+    control.valid = this.validateControl(control.value, control.validation)
     controls[controlName] = control
 
     let isFormValid = true
@@ -56,24 +56,23 @@ export default class Auth extends Component {
       isFormValid = controls[controlName2].valid && isFormValid
     })
 
-
     this.setState({
       isFormValid,controls
     })
   }
-  validateControl(value, validate) {
-    if (!validate) {
+  validateControl(value, validation) {
+    if (!validation) {
       return true
     }
     let isValid = true
-    if (validate.required) {
+    if (validation.required) {
       isValid = value.trim() !== '' && isValid
     }
-    if (validate.email) {
+    if (validation.email) {
       isValid = validateEmail(value) && isValid
     }
-    if (validate.minLength) {
-      isValid = value.length >= validate.minLength && isValid
+    if (validation.minLength) {
+      isValid = value.length >= validation.minLength && isValid
     }
     return isValid
   }
