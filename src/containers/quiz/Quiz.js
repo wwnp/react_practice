@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import classes from './Quiz.module.css'
 import ActiveQuiz from '../../components/ActiveQuiz/ActiveQuiz'
 import FinishedQuiz from '../../components/FinishedQuiz/FinishedQuiz.js'
-import { handler } from '../../pure/pure'
+import { delay, handler } from '../../pure/pure'
 import { useParams } from "react-router-dom";
+import Progress from '../../components/UI/Progress/Progress'
 
 export const AnswerClickHandlerContext = React.createContext(false)
-
 class Quiz extends Component {
   state = {
     activeQuestion: 0,
@@ -30,13 +30,15 @@ class Quiz extends Component {
         },
       ],
     counter: 0,
-    rangePercent: 0,
     isFinished: false,
-    results: { },
-    timeChange: 100
+    results: {},
+    initialProgress: 0,
+    maxProgress: 100,
+    currentProgress: 0
   }
 
   onAnswerClickHandler = (answerId, event) => {
+    console.log(this.progress)
     if (this.state.answerState) {
       const key = Object.keys(this.state.answerState)[0]
       if (this.state.answerState[key] === 'success') {
@@ -45,11 +47,11 @@ class Quiz extends Component {
     }
 
     const question = this.state.quiz[this.state.activeQuestion]
-    document.addEventListener("click",handler,true);
+    document.addEventListener("click", handler, true);
     const temp = this.state.results
 
     if (question.rightAnswerId === answerId) {
-      
+
       temp[this.state.activeQuestion] = true
       this.setState({
         answerState: { [answerId]: 'success' },
@@ -64,28 +66,46 @@ class Quiz extends Component {
         results: { ...temp }
       })
     }
-
+    let currentProgressMutant = this.state.currentProgress
     const interval = window.setInterval(() => {
+      currentProgressMutant = currentProgressMutant + 1
       this.setState({
-        rangePercent: this.state.rangePercent + 1
+        currentProgress: currentProgressMutant
       })
-      if (this.state.rangePercent >= this.state.timeChange) {
-        document.removeEventListener("click",handler,true);
+      if (currentProgressMutant === this.state.maxProgress) {
+        this.setState({
+          currentProgress: this.state.initialProgress
+        })
+        clearInterval(interval)
+        document.removeEventListener("click", handler, true);
         if (this.isQuizFinished()) {
           this.setState({
             isFinished: true,
-            rangePercent: 0
           })
         } else {
           this.setState({
             activeQuestion: this.state.activeQuestion + 1,
             answerState: null,
-            rangePercent: 0
           })
         }
-        window.clearInterval(interval)
       }
-    }, 1);
+    }, 1)
+
+    // delay(500).then(()=> {
+    //   document.removeEventListener("click",handler,true);
+    //     if (this.isQuizFinished()) {
+    //       this.setState({
+    //         isFinished: true,
+    //         rangePercent: 0
+    //       })
+    //     } else {
+    //       this.setState({
+    //         activeQuestion: this.state.activeQuestion + 1,
+    //         answerState: null,
+    //         rangePercent: 0
+    //       })
+    //     }
+    // })
   }
 
   isQuizFinished() {
@@ -96,7 +116,7 @@ class Quiz extends Component {
     this.setState({
       isFinished: false,
       counter: 0,
-      rangePercent: 0,
+      initialProgress: 0,
       activeQuestion: 0,
       answerState: null,
       results: {}
@@ -104,6 +124,7 @@ class Quiz extends Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <div className={classes.Quiz}>
         {this.state.isFinished
@@ -126,10 +147,14 @@ class Quiz extends Component {
                 quizLength={this.state.quiz.length}
                 answerNumber={this.state.activeQuestion}
                 answerState={this.state.answerState}
-                rangePercent={this.state.rangePercent}
-                timeChange={this.state.timeChange}
               >
+                <Progress
+                  maxProgress={this.state.maxProgress}
+                  value={this.state.currentProgress}
+                >
+                </Progress>
               </ActiveQuiz>
+
             </AnswerClickHandlerContext.Provider>
           </div>
         }
@@ -137,14 +162,19 @@ class Quiz extends Component {
       </div>
     )
   }
-  componentDidMount() {
-    this.progress = document.getElementById('prog')
+  async componentDidMount() {
+    try {
+
+    } catch (error) {
+
+    }
+
   }
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default function (props){
+export default function (props) {
   const params = useParams();
-  return <Quiz {...props} params={params} />;
+  return <Quiz {...props} param={params} />;
 }
 // export default Quiz

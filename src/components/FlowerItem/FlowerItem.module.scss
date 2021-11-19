@@ -1,0 +1,22 @@
+.Item {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  margin-left: 1%;
+  margin-right: 1%;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 1px 1px 1px rgb(145, 145, 145);
+  transition: all ease .15s;
+}
+.Item:hover {
+  box-shadow: 1px 1px 2px #222222;
+}
+.Item h4 {
+  text-align: center;
+  border-top: 1px solid black;
+}
+.Item div img{
+  height: 300px;
+  width: 100%;
+}
