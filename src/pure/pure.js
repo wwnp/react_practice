@@ -1,11 +1,11 @@
 export const delay = (ms) => {
-  return new Promise((resolve,reject)=> {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve()
     }, ms);
   })
 }
-export function handler(e){
+export function handlerStopEvent(e) {
   e.stopPropagation();
   e.preventDefault();
 }

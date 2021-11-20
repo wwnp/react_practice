@@ -1,9 +1,9 @@
 import React from "react";
 import classes from './Button.module.css'
 
-export const Button = props => {
+export const  Button = props => {
   const cls = [
-    classes.button,
+    classes.Button,
     classes[props.type]
   ]
   return (

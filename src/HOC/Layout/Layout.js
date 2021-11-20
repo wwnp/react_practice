@@ -4,17 +4,22 @@ import MenuToggle from '../../components/Navigation/MenuToggle/MenuToggle'
 import Drawer from '../../components/Navigation//Drawer/Drawer.js'
 import { Outlet } from "react-router-dom";
 import Footer from '../../components/UI/Footer/Footer';
+import Item from '../../components/FlowerItem/FlowerItem';
+import Loader from '../../components/UI/Loader/Loader';
+import { delay } from '../../pure/pure';
 
 class Layout extends Component {
   state = {
-    menu: false
+    menu: false,
+    flowers: [],
+    loading: true
   }
   onToggleHandler = () => {
     this.setState({
       menu: !this.state.menu
     })
   }
-  BackdropHandler(){
+  BackdropHandler() {
     this.setState({
       menu: false
     })
@@ -27,12 +32,12 @@ class Layout extends Component {
           BackdropHandler={this.BackdropHandler.bind(this)}
         >
         </Drawer>
+        <Outlet></Outlet>
         <MenuToggle
           onToggleHandler={this.onToggleHandler}
           isOpen={this.state.menu}
         >
         </MenuToggle>
-        <Outlet></Outlet>
         <Footer></Footer>
       </div>
     )

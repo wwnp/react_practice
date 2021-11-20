@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import classes from './ActiveQuiz.module.css'
 import AnswersList from './AnswersList/AnswersList.js'
 // import { delay } from '../../pure/pure'
+import Progress from '../UI/Progress/Progress'
 
 class ActiveQuiz extends Component {
   render(){
+    // console.log('ActiveQuiz:render')
     return (
       <div className={classes.ActiveQuiz}>
         <p className={classes.Question}>
@@ -19,7 +21,7 @@ class ActiveQuiz extends Component {
           answerState={this.props.answerState}
         >
         </AnswersList>
-        <progress className={classes['progress-bar']}max={this.props.timeChange} value={this.props.rangePercent} id="prog"></progress>
+        {this.props.children}
       </div>
     )
   }
