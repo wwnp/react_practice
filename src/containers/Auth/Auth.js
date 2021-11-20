@@ -3,6 +3,7 @@ import './Auth.scss'
 import { Button } from '../../components/UI/Button/Button'
 import Input from '../../components/UI/Input/Input'
 import is from 'is_js'
+import axios from 'axios'
 export default class Auth extends Component {
   state = {
     isFormValid: false,
@@ -33,11 +34,47 @@ export default class Auth extends Component {
           minLength: 6
         }
       },
+    },
+    logining: false,
+    responseAnswer: null
+  }
+  loginHandler = async () => {
+    const authData = {
+      email: this.state.controls.email.value,
+      password: this.state.controls.password.value,
+      returnSecureToken: true
+    }
+    try {
+      const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCUwRH5FVQMXegoYOWsYyJZj4FtaL88V3g', authData)
+      this.setState({
+        responseAnswer: 'success'
+      })
+    } catch (error) {
+      this.setState({
+        responseAnswer: 'error'
+      })
+    }
+    finally {
+      this.setState({ 
+        logining: true,
+      })
     }
   }
-  loginHandler = () => {
-  }
-  registerHandler = () => {
+  registerHandler = async () => {
+    const authData = {
+      email: this.state.controls.email.value,
+      password: this.state.controls.password.value,
+      returnSecureToken: true
+    }
+    try {
+      const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCUwRH5FVQMXegoYOWsYyJZj4FtaL88V3g', authData)
+      console.log(response.data)
+      this.setState({
+
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
   submitHandler = (e) => {
     e.preventDefault()
@@ -52,12 +89,12 @@ export default class Auth extends Component {
     controls[controlName] = control
 
     let isFormValid = true
-    Object.keys(controls).forEach((controlName2)=> {
+    Object.keys(controls).forEach((controlName2) => {
       isFormValid = controls[controlName2].valid && isFormValid
     })
 
     this.setState({
-      isFormValid,controls
+      isFormValid, controls
     })
   }
   validateControl(value, validation) {
@@ -96,9 +133,20 @@ export default class Auth extends Component {
       </Input>
     })
   }
+  renderResponse() {
+    const cls = ['answer']
+    this.state.responseAnswer === 'success' ? cls.push('success') : cls.push('error')
 
+    return (
+      <div className={cls.join(' ')}>
+        {this.state.responseAnswer === 'success'
+          ? <h6>Успешный вход</h6>
+          : <h6>Ошибка авторизации</h6>
+        }
+      </div>
+    )
+  }
   render() {
-    console.log(this.state.isFormValid)
     return (
       <div className='Auth'>
         <div>
@@ -120,6 +168,7 @@ export default class Auth extends Component {
               Register
             </Button>
           </form>
+          {this.state.logining ? this.renderResponse() : null}
         </div>
       </div>
     )

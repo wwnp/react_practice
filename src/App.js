@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route path='/' element={<QuizList />}></Route>
-          <Route path='/quiz/:sex' element={<Quiz />}></Route>
+          <Route path='/quiz/:hash' element={<Quiz />}></Route>
           <Route path='/quiz-creator' element={<QuizCreator />}></Route>
           <Route path='/auth' element={<Auth />}></Route>
           <Route path='*' element={<NotFound />}></Route>

@@ -8,7 +8,8 @@ import { Button, Container, Row, Col } from 'react-bootstrap';
 export default class Flowers extends Component {
   state = {
     flowers: [],
-    loading: true
+    loading: true,
+    minHeight: "300px"
   }
   render() {
     return (
@@ -22,7 +23,7 @@ export default class Flowers extends Component {
               <Button variant="warning">Button #1</Button>
             </div>
           </Row>
-        </Container> 
+        </Container>
       </div>
     )
   }
@@ -51,13 +52,13 @@ export default class Flowers extends Component {
   renderItems() {
     return this.state.flowers.map((flower, index) => {
       return <Col key={index} xs={6} md={3}>
-        <Item 
-          img={flower.img} 
+        <Item
+          img={flower.img}
           name={flower.name}
-          price={flower.price} 
+          price={flower.price}
         >
         </Item>
-      </Col> 
+      </Col>
     })
   }
   renderLoader() {

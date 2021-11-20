@@ -5,7 +5,7 @@ export const delay = (ms) => {
     }, ms);
   })
 }
-export function handler(e) {
+export function handlerStopEvent(e) {
   e.stopPropagation();
   e.preventDefault();
 }

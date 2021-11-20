@@ -12,10 +12,9 @@ export default class QuizList extends Component {
   }
   renderQuizes() {
     return this.state.quizes.map((quiz, index) => {
+      console.log(quiz)
       return (
-        <li
-          key={quiz.id}
-        >
+        <li key={quiz.id} >
           <NavLink to={'/quiz/' + quiz.id}>{quiz.name}</NavLink>
         </li>
       )
@@ -24,6 +23,15 @@ export default class QuizList extends Component {
   renderLoader() {
     return (
       <Loader></Loader>
+    )
+  }
+
+  render() {
+    return (
+      <div className='QuizList' id='test'>
+        <h1>Quiz List</h1>
+        {this.state.loading ? this.renderLoader() : this.renderQuizes()}
+      </div>
     )
   }
   async componentDidMount() {
@@ -47,13 +55,5 @@ export default class QuizList extends Component {
     } catch (error) {
       console.log(error)
     }
-  }
-  render() {
-    return (
-      <div className='QuizList' id='test'>
-        <h1>Quiz List</h1>
-        {this.state.loading ? this.renderLoader() : this.renderQuizes()}
-      </div>
-    )
   }
 }
