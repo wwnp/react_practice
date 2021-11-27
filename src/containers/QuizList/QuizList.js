@@ -7,7 +7,7 @@ import { delay } from '../../pure/pure';
 import { Button } from '../../components/UI/Button/Button';
 
 import { connect } from 'react-redux';
-import { fetchQuizes } from '../../redux/actions/quizlistAction';
+import { fetchQuizes } from '../../redux_redux/actions/quizlistAction';
 class QuizList extends Component {
 
   renderQuizes() {
