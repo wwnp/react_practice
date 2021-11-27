@@ -43,7 +43,6 @@ export default class Auth extends Component {
   onChangeHandler = (e, controlName) => {
     const controls = { ...this.state.controls }
     const control = { ...controls[controlName] }
-    console.log(control)
     control.value = e.target.value
     control.touched = true
     control.valid = this.validateControl(control.value, control.validation)
@@ -98,7 +97,6 @@ export default class Auth extends Component {
     return inputs
   }
   render() {
-    console.log(this.state.isFormValid)
     return (
       <div className='Auth'>
         <div>

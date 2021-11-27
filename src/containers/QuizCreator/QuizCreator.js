@@ -66,7 +66,6 @@ export default class QuizCreator extends Component {
     })
   }
   createQuizHandler = async (e) => {
-    console.log(this.state.quiz)
     e.preventDefault()
     try {
       const response = await axios.post('https://react-quiz-ce9f7-default-rtdb.europe-west1.firebasedatabase.app/quizes.json', this.state.quiz)

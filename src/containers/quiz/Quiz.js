@@ -155,7 +155,7 @@ class Quiz extends Component {
 }
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function (props) {
-  const params = useParams();
-  return <Quiz {...props} param={params} />;
+  const params = useParams()
+  return <Quiz {...props} param={params} />
 }
 // export default Quiz

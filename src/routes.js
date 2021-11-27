@@ -3,4 +3,6 @@ export const routes = {
   'Create Quiz': '/quiz-creator',
   'Auth': '/auth',
   'Flowers': '/flowers',
+  'Login': '/login',
+  'Instagram': '/instagram',
 }

@@ -1,0 +1,119 @@
+.Instagram {
+  flex-grow: 1;
+  width: 100%;
+
+  background: linear-gradient(270deg, #d1c1d3 0%, #c774b9 100%);
+}
+
+.Instagram h1 {
+  color: #fff;
+  text-transform: uppercase;
+  text-shadow: 1px 2px 3px blueviolet;
+}
+
+.instagram {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.instablock {
+  width: 50%;
+
+  position: relative;
+  z-index: 10;
+
+  transition: all ease .7s;
+}
+
+@media (min-width:768px) {
+  .instablock {
+    width: 25%;
+  }
+}
+
+@media (min-width:1200px) {
+  .instablock {
+    width: 16.666666666666666666666666%;
+  }
+}
+
+
+.instablock:hover .instablock-modal {
+  opacity: 0;
+}
+
+.instablock:hover .half {
+  background: rgba(8, 8, 8, 0.9);
+  z-index: 2;
+}
+
+.instablock:hover .half a {
+  z-index: 2;
+}
+
+.instablock .half a i {
+  font-size: 25px;
+  font-size: 2.5vw;
+}
+
+.instabutton {
+  text-align: center;
+
+  display: block;
+  color: rgb(148, 6, 161);
+  transition: all ease .3s;
+
+}
+
+.instabutton i {
+  color: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #d1c1d3 90%);
+}
+
+.instabutton:active,
+.instabutton.active {
+  color: '#d6249f';
+}
+
+.instabutton:hover {
+  cursor: pointer;
+  color: #d359ac;
+}
+
+.instablock img {
+  width: 100%;
+  height: auto;
+}
+
+.instablock-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background: rgba(0, 0, 0, 1);
+  opacity: 0.35;
+  transition: all ease .3s;
+}
+
+.instablock-modal img {
+  pointer-events: none;
+}
+
+// .instablock-modal .half a {
+//   position: absolute;
+//   bottom: 5%;
+//   right: 50%;
+//   transform: translateX(50%);
+//   z-index: -1;
+// }
+.instablock .half {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  height: 25%;
+  width: 100%;
+
+  transition: all ease .3s;
+}

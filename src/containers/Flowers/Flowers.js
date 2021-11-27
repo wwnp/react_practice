@@ -31,14 +31,16 @@ export default class Flowers extends Component {
     try {
       const response = await axios.get('https://react-quiz-ce9f7-default-rtdb.europe-west1.firebasedatabase.app/storage.json')
       const { data } = response
+      const flowerGroup_name = Object.entries(data)[0][0]
       const flowerGroup_value = Object.entries(data)[0][1]
       const flowers = []
       Object.keys(flowerGroup_value).forEach(flowerName => {
         const flower = flowerGroup_value[flowerName]
         const { name, img, price } = flower
         flowers.push(
-          { name, img, price }
+          { name, img, price, flowerName , flowerGroup_name },
         )
+        console.log(flowers)
       })
       await delay(700)
       this.setState({
@@ -56,6 +58,8 @@ export default class Flowers extends Component {
           img={flower.img}
           name={flower.name}
           price={flower.price}
+          flowerName={flower.flowerName}
+          flowerGroup_name={flower.flowerGroup_name}
         >
         </Item>
       </Col>

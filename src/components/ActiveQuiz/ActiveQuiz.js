@@ -6,7 +6,6 @@ import Progress from '../UI/Progress/Progress'
 
 class ActiveQuiz extends Component {
   render(){
-    // console.log('ActiveQuiz:render')
     return (
       <div className={classes.ActiveQuiz}>
         <p className={classes.Question}>

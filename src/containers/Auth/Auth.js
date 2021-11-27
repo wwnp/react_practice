@@ -11,6 +11,7 @@ export default class Auth extends Component {
       'email': {
         type: 'email',
         value: '',
+        // value: '1@test.com',
         errorMsg: 'Appropriate email pattern: quiz@mail.com',
         label: 'Email',
         valid: false,
@@ -23,6 +24,7 @@ export default class Auth extends Component {
       },
       'password': {
         type: 'password',
+        // value: '498428686',
         value: '',
         errorMsg: `Password has to contain at least 6 symbols`,
         label: 'Password',
@@ -68,7 +70,6 @@ export default class Auth extends Component {
     }
     try {
       const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCUwRH5FVQMXegoYOWsYyJZj4FtaL88V3g', authData)
-      console.log(response.data)
       this.setState({
 
       })
