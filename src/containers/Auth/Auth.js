@@ -2,16 +2,17 @@ import React, { Component } from 'react'
 import './Auth.scss'
 import { Button } from '../../components/UI/Button/Button'
 import Input from '../../components/UI/Input/Input'
-import is from 'is_js'
+// import is from 'is_js'
 import axios from 'axios'
-export default class Auth extends Component {
+import { connect } from 'react-redux'
+import { authAction } from '../../redux/actions/authAction'
+class Auth extends Component {
   state = {
     isFormValid: false,
     controls: {
       'email': {
         type: 'email',
         value: '',
-        // value: '1@test.com',
         errorMsg: 'Appropriate email pattern: quiz@mail.com',
         label: 'Email',
         valid: false,
@@ -24,7 +25,6 @@ export default class Auth extends Component {
       },
       'password': {
         type: 'password',
-        // value: '498428686',
         value: '',
         errorMsg: `Password has to contain at least 6 symbols`,
         label: 'Password',
@@ -40,42 +40,55 @@ export default class Auth extends Component {
     logining: false,
     responseAnswer: null
   }
-  loginHandler = async () => {
-    const authData = {
-      email: this.state.controls.email.value,
-      password: this.state.controls.password.value,
-      returnSecureToken: true
-    }
-    try {
-      const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCUwRH5FVQMXegoYOWsYyJZj4FtaL88V3g', authData)
-      this.setState({
-        responseAnswer: 'success'
-      })
-    } catch (error) {
-      this.setState({
-        responseAnswer: 'error'
-      })
-    }
-    finally {
-      this.setState({ 
-        logining: true,
-      })
-    }
+  loginHandler = () => {
+    this.props.authAction(
+      this.state.controls.email.value,
+      this.state.controls.password.value,
+      true
+    )
+    // const authData = {
+    //   email: this.state.controls.email.value,
+    //   password: this.state.controls.password.value,
+    //   returnSecureToken: true
+    // }
+    // try {
+    //   const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCUwRH5FVQMXegoYOWsYyJZj4FtaL88V3g', authData)
+    //   this.setState({
+    //     responseAnswer: 'success'
+    //   })
+    // } catch (error) {
+    //   this.setState({
+    //     responseAnswer: 'error'
+    //   })
+    // }
+    // finally {
+    //   this.setState({ 
+    //     logining: true,
+    //   })
+    // }
+    this.setState({
+      logining: true,
+    })
   }
-  registerHandler = async () => {
-    const authData = {
-      email: this.state.controls.email.value,
-      password: this.state.controls.password.value,
-      returnSecureToken: true
-    }
-    try {
-      const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCUwRH5FVQMXegoYOWsYyJZj4FtaL88V3g', authData)
-      this.setState({
+  registerHandler = () => {
+    this.props.authAction(
+      this.state.controls.email.value,
+      this.state.controls.password.value,
+      false
+    )
+    // const authData = {
+    //   email: this.state.controls.email.value,
+    //   password: this.state.controls.password.value,
+    //   returnSecureToken: true
+    // }
+    // try {
+    //   const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCUwRH5FVQMXegoYOWsYyJZj4FtaL88V3g', authData)
+    //   this.setState({
 
-      })
-    } catch (error) {
-      console.log(error)
-    }
+    //   })
+    // } catch (error) {
+    //   console.log(error)
+    // }
   }
   submitHandler = (e) => {
     e.preventDefault()
@@ -136,18 +149,17 @@ export default class Auth extends Component {
   }
   renderResponse() {
     const cls = ['answer']
-    this.state.responseAnswer === 'success' ? cls.push('success') : cls.push('error')
-
+    if(this.props.responseAnswerType){
+      cls.push(this.props.responseAnswerType)
+    }
     return (
       <div className={cls.join(' ')}>
-        {this.state.responseAnswer === 'success'
-          ? <h6>Успешный вход</h6>
-          : <h6>Ошибка авторизации</h6>
-        }
+        {this.props.responseAnswerValue}
       </div>
     )
   }
   render() {
+    console.log(this.props)
     return (
       <div className='Auth'>
         <div>
@@ -169,7 +181,7 @@ export default class Auth extends Component {
               Register
             </Button>
           </form>
-          {this.state.logining ? this.renderResponse() : null}
+          {this.props.responseAnswerValue && this.props.responseAnswerType ? this.renderResponse() : null}
         </div>
       </div>
     )
@@ -179,3 +191,18 @@ function validateEmail(email) {
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 }
+function mapStateToProps(state){
+  console.log(state)
+  return {
+    responseAnswerValue: state.auth.responseAnswer ? state.auth.responseAnswer.value : null,
+    responseAnswerType: state.auth.responseAnswer ? state.auth.responseAnswer.type : null,
+  }
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    authAction: (email, password, isLogin) => {
+      dispatch(authAction(email, password, isLogin))
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Auth)

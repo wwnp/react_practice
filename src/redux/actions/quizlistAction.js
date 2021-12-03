@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { delay } from '../../pure/pure'
-import { FETCH_QUIZES_START, FETCH_QUIZES_SUCCESS, FETCH_QUIZES_ERROR } from './actionTypes'
-export function fetchQuizes() {
+import { START_LOADING, FETCH_QUIZES_SUCCESS, FETCH_QUIZES_ERROR } from './actionTypes'
+export function fetchQuizes(sex) {
   return async dispatch => {
     dispatch(fetchQuizesStart())
     try {
@@ -25,7 +25,7 @@ export function fetchQuizes() {
 }
 function fetchQuizesStart() {
   return {
-    type: FETCH_QUIZES_START
+    type: START_LOADING
   }
 }
 function fetchQuizesSuccess(quizes) {

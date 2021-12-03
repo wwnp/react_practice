@@ -1,12 +1,12 @@
-import { FETCH_QUIZES_ERROR, FETCH_QUIZES_START, FETCH_QUIZES_SUCCESS } from "../actions/actionTypes"
+import { START_LOADING,FETCH_QUIZES_ERROR, FETCH_QUIZES_SUCCESS } from "../actions/actionTypes"
 
 const initialState = {
   payload: [],
   loading: false
 }
-export function quizReducer(state = initialState, action) {
+export function quizListReducer(state = initialState, action) {
   switch (action.type) {
-    case FETCH_QUIZES_START:
+    case START_LOADING:
       return { ...state, loading: true }
     case FETCH_QUIZES_SUCCESS:
       return { ...state, loading: false, payload: action.quizes }
