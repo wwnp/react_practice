@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import classes from './Drawer.module.css'
 import Backdrop from '../../UI/Button/Backdrop/Backdrop'
 import { NavLink } from "react-router-dom";
-import { routes } from '../../../routes';
+import { tokenRoutes,noTokenRoutes } from '../../../routes';
 import './Drawer.scss'
+import { connect } from 'react-redux';
 
 class Drawer extends Component {
   renderLinks() {
-    return Object.entries(routes).map(([title, location], index) => {
+    return Object.entries(localStorage.getItem('token') ? tokenRoutes : noTokenRoutes).map(([title, location], index) => {
       return (
         <li key={index}>
           <NavLink 
@@ -50,4 +51,9 @@ class Drawer extends Component {
     )
   }
 }
-export default Drawer
+function mapStateToProps(state){
+  return {
+    token: state.auth.token
+  }
+}
+export default connect(mapStateToProps,null)(Drawer) 

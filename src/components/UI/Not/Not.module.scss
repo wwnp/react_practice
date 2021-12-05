@@ -1,0 +1,31 @@
+.Not {
+  width: 100%!important;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+
+  transition: all ease .5s;
+}
+.Not > span {
+  margin-top: 15px;
+  padding: 10px 20px 10px 20px;
+
+  // background: rgba(1, 252, 14, 0.5);
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.default {
+  background: rgba(248, 245, 47, 0.65);
+}
+.success {
+  background: rgba(47, 248, 64, 0.65);
+}
+.error {
+  background: rgba(248, 47, 47, 0.65);
+}

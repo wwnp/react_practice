@@ -44,14 +44,15 @@ const FinishedQuiz = props => {
         >
           Again?
         </Button>
-        <Link to='/'>
-          <Button
-            // onButtonHandler={toQuizListHandler} or Link
-            type={'success'}
-          >
-            Tests List
-          </Button>
-        </Link>
+        {/* <Link to='/'> */}
+        <Button
+          onButtonHandler={props.onButtonTests}
+          // onButtonHandler={toQuizListHandler} or Link
+          type={'success'}
+        >
+          Tests List
+        </Button>
+        {/* </Link> */}
       </div>
     </div>
   )
